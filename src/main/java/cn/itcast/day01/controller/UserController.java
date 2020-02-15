@@ -1,7 +1,5 @@
 package cn.itcast.day01.controller;
 
-
-import cn.itcast.day01.Pojo.ResultInfo;
 import cn.itcast.day01.Pojo.User;
 import cn.itcast.day01.Pojo.UserVo;
 import cn.itcast.day01.service.UserService;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * RestController
@@ -67,12 +64,6 @@ public class UserController {
         String s = sb.toString();
         return s;
     }
-
-
-
-
-
-
 
     /**
      * 获取pojo类型的数据
