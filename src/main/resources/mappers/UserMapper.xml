@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射文件的nameSpace要跟接口的全部经保持一致-->
+<mapper namespace="cn.itcast.day01.mapper.Usermapper">
+
+<!-- 定义一个sql片段-->
+
+    <sql id="queryUsereById">
+        id,
+        user_name as userName,
+        password,
+        name,
+        age,
+        sex,
+        birthday,
+        created,
+        updated
+    </sql>
+
+<!--    id要跟接口中方法名保持一致-->
+    <select id="queryUserById" resultType="cn.itcast.day01.Pojo.User">
+        SELECT <include refid="queryUsereById"></include>> FROM tb_user WHERE id = #{id}
+    </select>
+
+
+</mapper>

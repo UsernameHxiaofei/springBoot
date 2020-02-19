@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射文件的nameSpace要跟接口的全部经保持一致-->
+<mapper namespace="cn.itcast.day01.mapper.OrderMapper">
+
+    <select id="queryOrderByOrderNumber" resultMap="OrderMap">
+        SELECT
+            *
+        FROM
+            tb_order o
+        LEFT JOIN tb_user u ON o.user_id = u.id
+        <where>
+            <if test="orderNumber != null and orderNumber.trim() != '' ">
+                o.order_number = #{orderNumber}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="OrderMap" type="Order" autoMapping="true">
+        <id column="id" property="id" />
+        <association property="user" javaType="User" autoMapping="true">
+            <id column="id" property="id"/>
+        </association>
+    </resultMap>
+
+
+    <select id="queryOrderAndUserAndOrderDetail" resultMap="OrderAndUserAndDetail">
+        SELECT
+            *
+        FROM
+            tb_order o
+        LEFT JOIN tb_user u ON o.user_id = u.id
+        LEFT JOIN tb_orderdetail od ON od.order_id = o.id
+        <where>
+            <if test="orderNumber != null and orderNumber.trim() != ''">
+                o.order_number = #{orderNumber}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="OrderAndUserAndDetail" type="Order" autoMapping="true">
+        <id column="id" property="id"/>
+        <association property="user" javaType="User" autoMapping="true">
+            <id column="id" property="id"/>
+        </association>
+        <collection property="orderDetailList" javaType="list" ofType="OrderDetail" autoMapping="true">
+            <id column="id" property="id"/>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="queryOrderContextById" resultMap="OrderInfo">
+        SELECT
+            *
+        FROM
+            tb_order o
+        LEFT JOIN tb_user u ON o.user_id = u.id
+        LEFT JOIN tb_orderdetail od ON od.order_id = o.id
+        LEFT JOIN tb_item i ON od.item_id = i.id
+        <where>
+            <if test="orderNumber != null and orderNumber.trim() != ''">
+                o.order_number = #{orderNumber}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="OrderInfo" type="Order" autoMapping="true">
+        <id column="id" property="id"/>
+        <association property="user" javaType="User" autoMapping="true">
+            <id column="user_id" property="id"/>
+        </association>
+        <collection property="orderDetailList" javaType="list" ofType="OrderDetail" autoMapping="true">
+            <id column="detail_id" property="id"/>
+            <association property="item" javaType="Item" autoMapping="true">
+                <id column="item_id" property="id"/>
+            </association>
+        </collection>
+    </resultMap>
+
+
+
+</mapper>
