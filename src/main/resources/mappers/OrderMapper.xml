@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--映射文件的nameSpace要跟接口的全部经保持一致-->
-<mapper namespace="cn.itcast.day01.mapper.OrderMapper">
+<mapper namespace="cn.jiuya.day01.mapper.OrderMapper">
 
     <select id="queryOrderByOrderNumber" resultMap="OrderMap">
         SELECT
@@ -81,6 +81,11 @@
             </association>
         </collection>
     </resultMap>
+
+
+    <insert id="insertOrder" parameterType="order">
+        insert into tb_order values (#{id},#{userId},#{orderNumber})
+    </insert>
 
 
 
